@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Warehouse Environmental Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col items-center p-6 sm:p-8">
+    <header class="text-center mb-10 w-full max-w-4xl">
+        <h1 class="text-5xl font-extrabold text-indigo-800 mb-3 drop-shadow-md">Smart Warehouse</h1>
+        <p class="text-xl text-gray-600 font-light">Real-time Environmental Monitoring</p>
+    </header>
+
+    <main id="dashboard-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+        <!-- Sensor data and charts will be dynamically loaded here by dashboard.js -->
+        <div id="loading-message" class="col-span-full text-center text-gray-500 text-2xl font-medium p-12 bg-white rounded-2xl shadow-lg animate-pulse">
+            Loading sensor data...
+        </div>
+    </main>
+
+    <!-- D3.js library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Our custom dashboard script -->
+    <script src="dashboard.js"></script>
+</body>
+</html>

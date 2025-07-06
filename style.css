@@ -1,0 +1,223 @@
+/* style.css */
+
+/* Custom CSS Variables for easy theme changes */
+:root {
+    --primary-color: #4f46e5; /* Indigo 600 */
+    --secondary-color: #10b981; /* Emerald 500 */
+    --text-color-dark: #1f2937; /* Gray 900 */
+    --text-color-medium: #4b5563; /* Gray 700 */
+    --text-color-light: #6b7280; /* Gray 500 */
+    --bg-light: #f9fafb; /* Gray 50 */
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb; /* Gray 200 */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --line-color-temp: #3b82f6; /* Blue 500 */
+    --line-color-humidity: #10b981; /* Emerald 500 */
+    --axis-color: #cbd5e1; /* Slate 300 */
+    --grid-gap: 2rem; /* Gap between grid items */
+}
+
+/* Base Body Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-color-dark);
+    line-height: 1.6;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem; /* Adjust padding for responsiveness */
+}
+
+/* Header Styling */
+header {
+    width: 100%;
+    max-width: 1200px; /* Limit header width */
+    margin-bottom: 2.5rem; /* Increased margin */
+}
+
+header h1 {
+    font-size: 3.5rem; /* Larger font for main title */
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05); /* Subtle text shadow */
+}
+
+header p {
+    font-size: 1.25rem; /* Larger subtitle */
+}
+
+/* Main Dashboard Container */
+#dashboard-container {
+    width: 100%;
+    max-width: 1200px; /* Max width for the grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid columns */
+    gap: var(--grid-gap); /* Use CSS variable for gap */
+    justify-content: center; /* Center grid items */
+    align-items: stretch; /* Stretch items to fill height */
+}
+
+/* Chart Container Styling */
+.chart-container {
+    background-color: var(--card-bg);
+    border-radius: 1rem; /* More rounded corners */
+    box-shadow: 0 10px 25px -5px var(--shadow-color), 0 8px 10px -6px rgba(0, 0, 0, 0.04); /* Deeper shadow */
+    padding: 2rem; /* Increased padding */
+    transition: all 0.3s ease-in-out;
+    border: 1px solid var(--border-color); /* Subtle border */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribute content */
+    min-height: 400px; /* Ensure minimum height for consistent card size */
+}
+
+.chart-container:hover {
+    transform: translateY(-8px) scale(1.01); /* More pronounced lift and slight scale */
+    box-shadow: 0 15px 35px -8px var(--shadow-color), 0 10px 15px -7px rgba(0, 0, 0, 0.08);
+}
+
+/* Text Styles within Chart Container */
+.chart-container h2 {
+    color: var(--primary-color); /* Primary color for sensor ID */
+    font-weight: 700; /* Bold */
+    font-size: 1.75rem; /* Larger font */
+    margin-bottom: 0.5rem;
+}
+
+.chart-container p {
+    color: var(--text-color-medium);
+    font-size: 0.95rem;
+}
+
+.chart-container .text-lg.font-medium {
+    font-size: 1.15rem; /* Slightly larger sensor values */
+}
+
+.chart-container .temp-value {
+    color: var(--line-color-temp); /* Matching temperature line color */
+    font-weight: 600;
+}
+
+.chart-container .humidity-value {
+    color: var(--line-color-humidity); /* Matching humidity line color */
+    font-weight: 600;
+}
+
+/* D3 Chart Specific Styles */
+.chart-svg-container {
+    width: 100%; /* Ensure container takes full width */
+    flex-grow: 1; /* Allow container to grow and take available space */
+    display: flex; /* Use flex to center SVG if needed */
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-svg-container svg {
+    display: block; /* Remove extra space below SVG */
+    /* No fixed width/height here, handled by JS */
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: var(--axis-color);
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-size: 0.8rem;
+    fill: var(--text-color-light);
+}
+
+.line {
+    fill: none;
+    stroke: var(--line-color-temp); /* Temperature line color */
+    stroke-width: 3px; /* Thicker line */
+    stroke-linecap: round; /* Rounded line caps */
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); /* Subtle shadow for the line */
+}
+
+.chart-title {
+    fill: var(--text-color-dark);
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.axis-label {
+    fill: var(--text-color-medium);
+    font-size: 0.9rem;
+}
+
+/* Tooltip Styling */
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 10px 15px;
+    background: rgba(31, 41, 55, 0.95); /* Darker, semi-transparent background */
+    color: #ffffff;
+    border-radius: 0.5rem; /* Rounded corners */
+    pointer-events: none;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    z-index: 1000; /* Ensure tooltip is on top */
+}
+
+.tooltip.active {
+    opacity: 1;
+    transform: translateY(-5px); /* Slight lift on activation */
+}
+
+/* Loading Message Animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    header h1 {
+        font-size: 2.5rem;
+    }
+    header p {
+        font-size: 1rem;
+    }
+    .chart-container {
+        padding: 1.5rem;
+        min-height: 350px; /* Slightly smaller min-height for mobile */
+    }
+    .chart-container h2 {
+        font-size: 1.5rem;
+    }
+    .chart-container .text-lg.font-medium {
+        font-size: 1rem;
+    }
+    .axis text {
+        font-size: 0.7rem;
+    }
+    .axis-label {
+        font-size: 0.8rem;
+    }
+    .chart-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #dashboard-container {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+    .chart-container {
+        padding: 1rem;
+    }
+}
